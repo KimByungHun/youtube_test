@@ -26,7 +26,8 @@ $.ajax({
         if(len>200){
             txt = txt.substr(0, 100) + "..."
         }
-
+        
+        //날짜 텍스트 정리
         let date = data.snippet.publishedAt;
         date = date.split("T")[0];
 
@@ -52,4 +53,29 @@ $.ajax({
 })
 .error(function(err){
     console.log(err);
+})
+
+$("body").on("click", "#vidGallery article a", function(e){
+    e.preventDefault();
+
+    let vidId = $(this).attr("href");
+
+    $("body")
+        .append(
+            $("<div class='pop'>")
+                .append(
+                    $("<iframe>")
+                        .attr({
+                            src:"https://www.youtube.com/embed/"+vidId,
+                            frameborde : 0,
+                            width : "100%",
+                            height : 600
+                        }),
+                    $("<span>").text("close")
+                )
+        )
+});
+
+$("body").on("click", ".pop span", function(){
+    $(".pop").remove();
 })
